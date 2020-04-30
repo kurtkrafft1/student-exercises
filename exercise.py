@@ -4,4 +4,5 @@ class Exercise:
         self.name = name 
         self.language = language
     
-    
+    def __repr__(self):
+        return f'{self.name} is done using {self.language}'

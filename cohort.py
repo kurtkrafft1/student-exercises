@@ -1,9 +1,10 @@
 class Cohort:
 
-    def __init__(self, name, students, instructors):
+    def __init__(self,cohort_id, name):
+        self.cohort_id = cohort_id
         self.name = name
-        self.students = students
-        self.instructors = instructors
+        self.students = list()
+        self.instructors = list()
 
     def add_students(self, student):
         self.students.append(student)
@@ -16,3 +17,4 @@ class Cohort:
         
     def remove_instructor (self, instructor):
         self.instructors.remove(instructor)
+    
