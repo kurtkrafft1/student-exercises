@@ -67,23 +67,80 @@ from db_manager import Db_Manager
 #     print(f"{student.first_name} is currently working on {joint} and {last_one.name} exercises")
 
 data = Db_Manager()
+
 print("----Students----")
 data.student_data()
+print("\n")
+
 print("----Exercises----")
 data.exercise_data()
+print("\n")
+
 print("----Cohorts----")
 data.cohort_data()
+print("\n")
 
 langs = ["C#", "Python", "JavaScript"]
 print("----By Language----")
 for lang in langs:
     print(f"----{lang}----")
     data.exercise_data_by_language(lang)
+print("\n")
 
 print("----Instructors----")
 data.instructor_data()
+print("\n")
+
+print("----Students, Instructors & Exercises----")
+all_exercise_dict = data.get_student_exercise_dictionary("all")
+for key, value in all_exercise_dict.items():
+    print(f"    --{key}--")
+    print(f"        --Students--")
+    for student in value["students"]:
+        print(f"            --{student}--")
+    print(f"        --Assigned By--")
+    for instructor in value["instructors"]:
+        print(f"            --{instructor}--")
+    print("\n\n")
+
+print("\n")
+student_exercise_dict = data.get_student_exercise_dictionary("student")
+print("----Students & Exercises----")
+for key, value in student_exercise_dict.items():
+    print(f"    --{key} is working on:")
+
+    for ex in value:
+        print(f"        --{ex}")
+
+    print("\n")
+       
+instructor_exercise_dict = data.get_student_exercise_dictionary('instructor')
+print("----Instructors & Exercises----")
+for key, value in student_exercise_dict.items():
+    print(f"    --{key} assigned the following exercises: ")
+    for ex in value:
+        print(f"        --{ex}")
+    
+    print("\n")
 
 
 
+print("----ADVANCED CHALLENGE EXERCISES, INSTRUCTORS AND STUDENTS----")
+challenge_dict_for_both = data.get_student_exercise_dictionary("both")
+for key, value in challenge_dict_for_both.items():
+    print(f"    --{key}--")
+    for pair in value:
+        print(f"{pair[0]} assigned this to {pair[1]}")
+    print("\n")
 
-
+print("----ADVANCED CHALLENGE COHORTS, INSTRUCTORS AND STUDENTS----")
+new_challenge_dict = data.get_students_cohorts_exercises()
+print("\n")
+for key, value in new_challenge_dict.items():
+    print(f"--{key}--")
+    print(f"    --Students--")
+    for stud in value["students"]:
+        print(f"{stud} is in {key}")
+    print(f"    --Instructors")
+    for inst in value["instructors"]:
+        print(f"{inst} teaches {key}")
